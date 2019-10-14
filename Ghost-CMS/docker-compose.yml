@@ -1,0 +1,25 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    restart: always 
+    environment:
+      MYSQL_ROOT_PASSWORD: ocrpassword
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghostuser
+      MYSQL_PASSWORD: ocrpassword
+  ghost:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports: 
+      - "80:2368"
+    environment:
+      url: http://localhost
+      MYSQL_ROOT_PASSWORD: ocrpassword
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghostuser
+      MYSQL_PASSWORD: ocrpassword
+
